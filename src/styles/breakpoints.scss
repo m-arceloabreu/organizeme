@@ -1,0 +1,36 @@
+$SMALL: 520px;
+$MEDIUM: 743px;
+$LARGE: 1050px;
+$EXTRA_LARGE: 1439px;
+
+$breakpoints: (
+  small: $SMALL medium: $MEDIUM large: $LARGE extra-large: $EXTRA_LARGE
+);
+
+@mixin media($size) {
+  @each $key, $value in $breakpoints {
+    @if $key == $size {
+      @media (max-width: $value) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin media-max($size) {
+  @each $key, $value in $breakpoints {
+    @if $key == $size {
+      @media (min-width: $value) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin media-between($size-min, $size-max) {
+  @each $key, $value in $breakpoints {
+    @media ($size-min > width > $size-max) {
+      @content;
+    }
+  }
+}

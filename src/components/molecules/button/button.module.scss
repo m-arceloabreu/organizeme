@@ -1,0 +1,37 @@
+@import '../../../styles/globals.scss';
+
+.buttonClass{
+    cursor: pointer;
+    padding: 5px;
+    color: $forth-color;
+    border: 2px solid;
+    border-radius: 10px;
+    font-family: $font-text;
+    text-align: center;
+    text-justify: center;
+}
+.outlined{
+    background-color:$primary-color;
+    border-color: $secondary-color;
+}
+.outlined:hover{
+    background-color: $secondary-color;
+    color: $bg-color;
+}
+.filled{
+    background-color: $bg-color;
+    border-color: $secondary-color;
+}
+.filled:hover{
+    background-color: $secondary-color;
+    color: $forth-color;
+}
+.alert{
+    background-color: $alert-color;
+    border-color: $secondary-color;
+}
+.alert:hover{
+    background-color: $forth-color;
+    color: $alert-color;
+    border-color: $alert-color;
+}
