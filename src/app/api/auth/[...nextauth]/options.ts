@@ -1,5 +1,6 @@
 import type { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { NextResponse } from 'next/server';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -9,7 +10,6 @@ export const options: NextAuthOptions = {
         email: { label: 'email', type: 'text' },
         password: { label: 'password', type: 'password' },
       },
-
       async authorize(credentials) {
         const response = await fetch(
           'http://localhost:8080/api/v1/auth/signin',
@@ -24,18 +24,18 @@ export const options: NextAuthOptions = {
             }),
           }
         );
-        const user = await response.json();
-        if (user && response.ok) {
+        const res = await response.json();
+
+        if(res && response.status === 200){
+          const user = res;
           return user;
-        } else {
-          throw new Error("User name or password is not correct");
         }
-      },
+        return null;
+      }
     }),
   ],
   pages: {
-    signIn: '/auth/signIn',
-    error: '/denied',
+    signIn: '/auth/signIn'
   },
   callbacks: {
     async jwt({ token, user }) {

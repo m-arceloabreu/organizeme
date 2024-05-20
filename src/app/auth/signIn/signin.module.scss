@@ -36,8 +36,18 @@
             font-family: $font-title;
             font-size: 40px;
             color: $secondary-color;
+            margin:0;
         }
-
+        span{
+            background-color: $alert-color;
+            width: 80%;
+            color: $forth-color;
+            padding: 5px;
+            font-family: $font-text;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 10px;
+        }
 
         input{
             color: $forth-color;
@@ -61,7 +71,7 @@
         }
         
     }
-    a{
+    button{
         cursor: pointer;
         text-align: center;
         margin-top: 50px;
@@ -73,7 +83,7 @@
         border-radius: 15px;
         color: $forth-color;
     }
-    a:hover{
+    button:hover{
         background-color: $third-color;
     }
 }
@@ -95,7 +105,7 @@
              input{
                 width: 100%;
              }
-             a{
+             button{
                 width: 100%;
              }
         }

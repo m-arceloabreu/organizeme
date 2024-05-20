@@ -5,6 +5,7 @@ export interface ButtonProps {
   cta?: () => void;
   disable: boolean;
   label: string;
+  type?: 'button' | 'reset' | "submit";
 }
 
 export default function Button(props: ButtonProps) {
@@ -13,6 +14,7 @@ export default function Button(props: ButtonProps) {
       disabled={props.disable ?? false}
       onClick={props.cta}
       className={`${styles.buttonClass} ${styles[`${props.variant}`]}`}
+      type={props.type}
     >
       {props.label}
     </button>

@@ -1,0 +1,32 @@
+@import '../../../styles/globals.scss';
+
+.default {
+    width: 100%;
+    background-color: gray;
+    height: 5px;
+
+    .tooweak{
+        background-color: red;
+        width: 25%;
+        height: 5px;
+    }
+    
+    .weak{
+        background-color: orange ;
+        width: 50%;
+        height: 5px;
+    }
+    
+    .medium{
+        background-color: yellow;
+        width: 75%;
+        height: 5px;
+    }
+    
+    .strong{
+        background-color: green;
+        width: 100%;
+        height: 5px;
+    }
+}
+

@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import {changePassword} from '../../../apiHandlers/user/userApiHandler';
 import { UserData } from 'next-auth/providers/42-school';
 import { User } from 'next-auth';
+import { toast } from 'sonner';
 
 export type ModalChangePasswordProps = {
   modalValue: boolean;
@@ -28,7 +29,14 @@ export default function ModalChangePassword(props: ModalChangePasswordProps) {
     }
 
     if(props.token){
-      await changePassword(changePasswordObj, props.token);
+      let result =  await changePassword(changePasswordObj, props.token);
+      if(result.status === 202) {
+        toast.success("Password changed");
+        props.closeModal();
+      }
+      else{
+        toast.error("Something wrong");
+      }
   }
 }
 
