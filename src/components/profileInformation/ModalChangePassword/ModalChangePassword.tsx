@@ -1,9 +1,9 @@
 import Button from '@/components/molecules/button/Button';
 import styles from './modalChangePassword.module.scss';
-import ChangePasswordType from '@/components/types';
+import ChangePasswordType from '@/libs/validation/types';
 import { getToken } from 'next-auth/jwt';
 import { useRef } from 'react';
-import {changePassword} from '../../../apiHandlers/user/userApiHandler';
+import { changePassword } from '../../../apiHandlers/user/userApiHandler';
 import { UserData } from 'next-auth/providers/42-school';
 import { User } from 'next-auth';
 import { toast } from 'sonner';
@@ -16,29 +16,27 @@ export type ModalChangePasswordProps = {
 };
 
 export default function ModalChangePassword(props: ModalChangePasswordProps) {
-
   const currentPassword = useRef('');
   const newPassword = useRef('');
   const confirmNewPassword = useRef('');
 
-  const changePasswordFunc = async () =>{
-    const changePasswordObj:ChangePasswordType ={
-      "currentPassword": currentPassword.current,
-      "newPassword": newPassword.current,
-      "confirmNewPassword": confirmNewPassword.current
-    }
+  const changePasswordFunc = async () => {
+    const changePasswordObj: ChangePasswordType = {
+      currentPassword: currentPassword.current,
+      newPassword: newPassword.current,
+      confirmNewPassword: confirmNewPassword.current,
+    };
 
-    if(props.token){
-      let result =  await changePassword(changePasswordObj, props.token);
-      if(result.status === 202) {
-        toast.success("Password changed");
+    if (props.token) {
+      let result = await changePassword(changePasswordObj, props.token);
+      if (result.status === 202) {
+        toast.success('Password changed');
         props.closeModal();
+      } else {
+        toast.error('Something wrong');
       }
-      else{
-        toast.error("Something wrong");
-      }
-  }
-}
+    }
+  };
 
   return (
     <>
@@ -52,39 +50,36 @@ export default function ModalChangePassword(props: ModalChangePasswordProps) {
                 <input
                   className={styles.inputStyle}
                   placeholder="********"
-                  type='password'
-                  name='currentPassword'
+                  type="password"
+                  name="currentPassword"
                   onChange={(e) => (currentPassword.current = e.target.value)}
                 ></input>
                 <label>New Password</label>
                 <input
                   className={styles.inputStyle}
                   placeholder="********"
-                  name='newPassword'
-                  type='password'
+                  name="newPassword"
+                  type="password"
                   onChange={(e) => (newPassword.current = e.target.value)}
                 ></input>
                 <label>Confirm new Password</label>
                 <input
                   className={styles.inputStyle}
                   placeholder="********"
-                  type='password'
-                  name='confirmNewPassword'
-                  onChange={(e) => (confirmNewPassword.current = e.target.value)}
+                  type="password"
+                  name="confirmNewPassword"
+                  onChange={(e) =>
+                    (confirmNewPassword.current = e.target.value)
+                  }
                 ></input>
               </form>
-              <Button
-                variant="outlined"
-                disable={false}
-                cta={props.closeModal}
-                label={`${'<'} Cancel`}
-              />
-              <Button
-                variant="outlined"
-                disable={false}
-                cta={changePasswordFunc}
-                label={` Confirm Change ${'>'}`}
-              />
+              <button disabled={false} onClick={props.closeModal}>
+                {' '}
+                Cancel
+              </button>
+              <button disabled={false} onClick={changePasswordFunc}>
+                Confirm changes
+              </button>
             </div>
           </div>
         </div>

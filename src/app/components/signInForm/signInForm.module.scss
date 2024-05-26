@@ -1,0 +1,55 @@
+@import '../../../styles/globals.scss';
+
+.formSignIn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    padding: 5px;
+
+    h1{
+        font-family: $font-title;
+        text-shadow: 1px 1px 1px black;
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+    p, a, span {
+        font-family: $font-text;
+    }
+    .inputGroup{
+        width: 100%;
+
+    label {
+        position: relative;
+        left: 15px;
+        top: 20px;
+    }
+    input {
+        position: relative;
+        width: 99.5%;
+        padding: 0px;
+        padding-top: 30px;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        background-color: transparent;
+        color: $forth-color;
+        border: 0;
+        border: 1px solid $forth-color;
+    }
+    input::placeholder{
+        padding-left: 15px;
+    }
+}
+    button{
+        margin-top: 10px;
+        width: 100%;
+        padding: 10px 15px;
+        background-color: $secondary-color;
+        border: 0;
+        border: 2px solid $secondary-color;
+        font-size: 1.8rem;
+        color: $primary-color;
+    }
+
+}

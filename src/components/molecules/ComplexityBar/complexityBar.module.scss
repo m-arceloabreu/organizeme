@@ -1,32 +1,44 @@
 @import '../../../styles/globals.scss';
 
-.default {
+.complexityBar {
+        width: 100%;
+        padding: 0px;
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+
+        p{
+          margin: 0;
+          margin-top: 5px;
+        }
+
+  .default {
     width: 100%;
     background-color: gray;
-    height: 5px;
+    height: 15px;
 
-    .tooweak{
-        background-color: red;
-        width: 25%;
-        height: 5px;
+    .tooweak {
+      background-color: red;
+      width: 25%;
+      height: 15px;
     }
-    
-    .weak{
-        background-color: orange ;
-        width: 50%;
-        height: 5px;
+
+    .weak {
+      background-color: orange;
+      width: 50%;
+      height: 15px;
     }
-    
-    .medium{
-        background-color: yellow;
-        width: 75%;
-        height: 5px;
+
+    .medium {
+      background-color: yellow;
+      width: 75%;
+      height: 15px;
     }
-    
-    .strong{
-        background-color: green;
-        width: 100%;
-        height: 5px;
+
+    .strong {
+      background-color: green;
+      width: 100%;
+      height: 15px;
     }
+  }
 }
-

@@ -1,0 +1,77 @@
+@import '../styles/globals.scss';
+
+
+.home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - (60px));
+}
+.bannerText{
+    position: absolute;
+    top: 40vh;
+    left: 15%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+
+    h1{
+        margin: 0;
+        padding: 5px;
+        text-wrap: nowrap;
+        font-family: $font-title;
+        font-size: 5rem;
+        font-weight: 900;
+        text-shadow: black 5px 5px 3px;
+    }
+
+    p{
+        padding: 5px;
+        font-size: 1.6rem;
+        font-weight: 400;
+        margin: 0;
+        font-family: $font-text;
+    }
+
+    .ctaRegister{
+        margin-top: 15px;
+        background-color: $secondary-color;
+        font-family: $font-text;
+        font-weight: 400;
+        color: $primary-color;
+        text-decoration: none;
+        padding: 10px 15px;
+    }
+}
+
+
+
+
+@include mobile {
+
+    .banner{
+        top: 0;
+        left: 0;
+    }
+    .bannerText{
+        width: 100%;
+        left: 0;
+        align-items: center;
+        justify-content: center;
+        
+        h1{
+            font-size: 2.4rem;
+        }
+        p{
+            padding: 5px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+    }
+
+
+}

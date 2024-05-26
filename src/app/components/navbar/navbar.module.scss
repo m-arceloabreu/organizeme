@@ -1,150 +1,277 @@
 @import '../../../styles/globals.scss';
 
-.bgColor{
-    background-color: $primary-color;
-    top: 0;
-    left: 0;
+.transparent{
+  background-color: transparent;
+  transition: all .5s linear;
+}
+.colored{
+  background-color: $primary-color;
+  transition: all .5s linear;
+
+}
+
+.bgColor {
+  z-index: 20000;
+  border-bottom: 1px solid $forth-color;
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 150px;
+
+  .menu{
     position: fixed;
-    width: 100%;
-    height: 60px;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid $secondary-color;
-}
-.container{
-    width: 100%;
-    max-width: $DESKTOP_MAX;
-    height: 100%;
+    right: 0;
+    margin-right: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-}
+    justify-content: center;
+    gap: 30px;
 
-.logoArea{
+  nav{
+    ul{
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+
+      li {
+        list-style-type: none;
+        a{
+          padding: 5px;
+          text-decoration: none;
+          font-family: $font-text;
+          font-size: 1.2rem;
+          font-weight: 300;
+          text-shadow: black 2px 2px 2px;
+          border: 1px solid transparent;
+          transition: .2s ease-in-out all;
+          
+        }
+        a:hover{
+          background-color: $primary-color;
+          border: 1px solid $secondary-color;
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+  .btnGroup {
     display: flex;
-    flex-direction: row;
-    width: 20%;
-    align-items: center;
-    justify-content: center;
-    font-family: $font-title;
-    color: $secondary-color;
-    font-size: 1.8rem;
-    margin-left: 10px;
-}
-.nav {
-    width: 80%;
-    margin-right: 10px;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    flex-direction: row;
-}
-.nav ul{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
-}
-.nav ul li {
-    list-style: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-}
-.nav ul li:hover {
-    background-color: $third-color;
-}
-.nav ul li a {
-    font-size: 1rem;
-    text-align: center;
+    gap: 5px;
     font-family: $font-text;
-    text-decoration: none;
-    padding: 0px;
-    width: 100%;
+    font-size: 1.4rem;
+
+    .btnSignIn{
+      padding: 10px 5px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      text-shadow: black 2px 2px 2px;
+      transition: .2s ease-in-out all;
+    }
+    .btnSignIn:hover{
+      background-color: $primary-color;
+      border: 1px solid $secondary-color;
+      color: $secondary-color;
+      
+    }
+
+    .btnSignUp{
+      padding: 10px;
+      background-color: $secondary-color;
+      box-shadow: 1px 1px 1px black;
+      color: $primary-color;
+      text-decoration: none;
+      border: 1px solid $primary-color;
+      transition: .2s ease-in-out all;
+    }
+    .btnSignUp:hover{
+      background-color: $primary-color;
+      border: 1px solid $secondary-color;
+      color: $secondary-color;
+    }
+
+  }
 }
 
-.hambMenu{
+  .logoArea {
+    width: fit-content;
+    text-wrap: nowrap;
+    margin-left: 15px;
+    max-width: 200px;
+    height: 100%;
+    max-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      margin: 0;
+      padding: 0;
+      font-family: $font-title;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: $secondary-color;
+      text-shadow: black 2px 2px 2px;
+    }
+  }
+}
+
+.hambMenu {
+  cursor: none;
+  visibility: none;
+  opacity: 0;
+  position: fixed;
+  & li {
+    list-style-type: none;
+  }
+}
+
+@include tablet-and-mobile {
+  .hambMenu {
+    visibility: visible;
+    opacity: 1;
     cursor: pointer;
-    background-color: $third-color;
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    display: none;
+    width: 30px;
+    height: 30px;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    margin-right: 15px;
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+
+    li {
+      width: 100%;
+      list-style: none;
+      border: 1px solid $secondary-color;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+.hambMenu.active{
+      .one {
+        transform: translateY(10px) rotate(45deg);
+      }
+      .two {
+        transform: translateY(-10px) rotate(-45deg);
+      }
+      .hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+  }
+
+  .menu{
     visibility: hidden;
     opacity: 0;
-
-}
-
-.hambMenu img {
-    width: 50px;
-    height: 50px;
-}
-
-.btnSign {
-    color: $third-color;
+  }
+  .menu.active{
+    visibility: visible;
+    opacity: 1;
+    position: fixed;
+    top: 60px;
     background-color: $primary-color;
-    border: 2px solid $third-color;
-    text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-size: 1.2rem;
-}
- .btnSign a {
-    text-decoration: none;
- }
-.btnSign:hover{
-    background-color: $third-color;
-}
+    border: 1px solid $forth-color;
+    right: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0;
 
-@include tablet-and-mobile{ 
-    .logoArea{
-        width: 50%;
-        text-wrap: nowrap;
-    }
-    .hambMenu{
-        display: flex;
-        visibility: visible;
-        opacity: 1;
-        position: fixed;
-        right: 10px;
-    }
-    .nav ul {
-        display: flex;
-        visibility: hidden;
-        opacity: 0;
-    }
-    .nav ul.active {
-        background-color: $primary-color;
+    nav{
+      width: 100%;
+      margin-top: 2px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary-color;
+
+      ul{
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        padding: 0;
-        margin: 0px;
+        background-color: $primary-color;
+
         align-items: center;
         justify-content: center;
-        opacity: 1;
-        visibility: visible;
-        position: fixed;
-        width: 100%;
-        top: 8vh;
-        left: 0;
-        height: 100vh;
+
+        li{
+          margin: 0;
+          width: 100%;
+          height: 100%;
+          max-height: 200px;
+          background-color: $primary-color;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.0rem;
+            margin: 0;
+            padding: 0;
+            width: 90%;
+            height: 100%;
+            max-height: 200px;
+            border-bottom: 1px solid $forth-color;
+          }
+        }
+
       }
-      .nav ul.active li {
-        display: flex;
-        align-items: center;
-        font-size: 50px;
-        background-color: $third-color;
-        border: 1px solid $third-color;
-        pad: 0;
-        border-radius: 0;
+
+    }
+    .btnGroup{
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary-color;
+      width: 100%;
+      height: 80%;
+      font-size: 2rem;
+
+      .btnSignIn{
         width: 90%;
-        height: 15vh;
-        margin-top: 10px;
+        border: 1px solid $secondary-color;
+        height: 100%;
+        max-height: 100px;
+        background-color: $primary-color;
+        color: $secondary-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
       }
-      .nav ul.active li:hover{
+      .btnSignIn:hover{
+        background-color: $secondary-color;
         color: $primary-color;
-        background-color: $third-color;
-        margin-bottom: 0;
       }
+      .btnSignUp{
+        width: 90%;
+        height: 80%;
+        max-height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        border: 1px solid $secondary-color;
+      }
+    }
+  }
 }

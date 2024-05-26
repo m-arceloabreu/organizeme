@@ -1,52 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=MuseoModerno&family=Roboto:ital,wght@0,400;0,700;0,900;1,100;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
 
-$DESKTOP_MAX: 1440px;
-$DESKTOP_MIN: 1050px;
-$TABLET_MAX: 1049px;
-$TABLET_MIN: 744px;
-$MOBILE_MAX: 743px;
-$MOBILE_MIN: 320px;
+$DESKTOP_MIN: 1008px;
+$TABLET_MAX: 1007px;
+$TABLET_MIN: 641px;
+
+$MOBILE_MAX: 640px;
 
 
-$primary-color: #404B69;
-$bg-color: #283149;
+//$primary-color: #404B69;
+//$bg-color: #283149;
+//$alert-color: rgb(149, 6, 32);
+//
+//$secondary-color: #46BCAD;
+//$third-color: #00818A;
+//$forth-color: #DBEDF3;
+
+$primary-color: #091722;
+$bg-color: #03020A;
 $alert-color: rgb(149, 6, 32);
 
-$secondary-color: #46BCAD;
-$third-color: #00818A;
-$forth-color: #DBEDF3;
+$secondary-color:#a3fdff;
+$third-color: #073646;
+$forth-color: #d5ddec;
+
 
 
 $font-text: 'Roboto', sans-serif;
-$font-title: 'MuseoModerno',sans-serif;
+$font-title: 'Saira',sans-serif;
 
-
-.inputStyle{
-    color: $forth-color;
-    font-family: $font-text;
-    font-size: 15px;
-    width:  100%;
-    max-width: 300px;
-    min-width: 300px;
-    padding: 5px;
-    border-bottom: 3px solid $secondary-color;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    outline: none;
-    background-color: $primary-color;
-    margin-bottom: 15px;
-}
-.inputStyle:disabled{
-    cursor: not-allowed;
-    background-color: gray;
-    opacity: 50%;
- }
-.inputStyle::placeholder{
-    color: $forth-color;
-    font-size: 16px;
-    opacity: .5;
-}
-.inputStyle:focus{
-    background-color: $primary-color;
-}

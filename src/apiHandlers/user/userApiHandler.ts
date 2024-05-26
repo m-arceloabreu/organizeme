@@ -1,11 +1,5 @@
 'use server'
-import { HttpStatusCode } from 'axios';
-import ChangePasswordType from '../../components/types';
-import { getServerSession } from 'next-auth';
-import { getSession } from 'next-auth/react';
-import { redirect } from 'next/dist/server/api-utils';
-import { signUpFormSchema } from '@/libs/validation/forms/signUpValidator';
-import { SignUpFormSchema } from '@/app/components/signUpForm/SignUpForm';
+import { ChangePasswordType, SignUpFormSchemaType, UpdateUserSchemaType } from '../../libs/validation/types';
 
 export const changePassword = async (changePassword: ChangePasswordType, token: string) => {
 
@@ -39,8 +33,7 @@ export const changePassword = async (changePassword: ChangePasswordType, token: 
     return result;
 }
 
-
-export const signUp = async (signUpFormSchema: SignUpFormSchema) => {
+export const signUp = async (signUpFormSchema: SignUpFormSchemaType) => {
 
  let result: {status: number, message: string} = { status: 0, message: ''};
 
@@ -71,3 +64,62 @@ export const signUp = async (signUpFormSchema: SignUpFormSchema) => {
 
     return result;
 }
+
+export const updateUser = async (updateUserSchema: UpdateUserSchemaType, token: string) => {
+
+    let result: {status: number, message: string} = { status: 0, message: ''};
+
+    await fetch(`http://localhost:8080/api/v1/user/update`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            name: updateUserSchema.name,
+            image: updateUserSchema.image,
+            phoneNumber: updateUserSchema.phoneNumber
+        }),
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then((r) => {
+        if(r.status === 200){
+
+        result.status = 200
+        result.message = 'User updated'
+
+        return result;
+       }
+       else{
+        result.status = 400
+        result.message = 'Error'
+        return result;
+       }
+    })
+    return result;
+}
+
+export const deleteUser = async ( token: string) => {
+
+    let result: {status: number, message: string} = { status: 0, message: ''};
+
+    await fetch(`http://localhost:8080/api/v1/user/deleteuser`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then((r) => {
+        if(r.status === 200){
+
+        result.status = 200
+        result.message = 'User deleted'
+
+        return result;
+       }
+       else{
+        result.status = 400
+        result.message = 'Error'
+        return result;
+       }
+    })
+    return result;
+}
+

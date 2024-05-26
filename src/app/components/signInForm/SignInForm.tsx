@@ -5,9 +5,9 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { signInFormSchema } from "@/libs/validation/forms/signInValidator";
-import Button from "@/components/molecules/button/Button";
 import { toast } from "sonner";
+import { signInFormSchema } from "@/libs/validation/userValidations";
+import styles from './signInForm.module.scss';
 
 type LoginInputs = {
   email: string
@@ -47,19 +47,24 @@ export default function SignInForm (){
 
     return(
         <>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Sign In</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.formSignIn}>
+          <h1>Login to Your Account!</h1>
           {errors.root?.message && <span>{errors.root.message}</span>}
+
+          <div className={styles.inputGroup}>
+            <label>Email</label>
           <input
             {...register('email')}
-            placeholder="email@email.com"
+            placeholder="Enter your email"
             id="email"
             name="email"
             type="text"
             disabled={isSubmitting}
              />
              {errors.email?.message &&  <span>{errors.email.message}</span>}
-
+          </div>
+          <div className={styles.inputGroup}>
+          <label>Password</label>
           <input
             {...register('password')}
             placeholder="Password"
@@ -69,10 +74,11 @@ export default function SignInForm (){
             type="password"
           />
           {errors.password?.message &&  <span>{errors.password.message}</span>}
-
-          <Button variant='outlined' type="submit" disable={isSubmitting}
-          label={!isSubmitting ? 'Sign in' : 'Signin in...'}
-          />
+          </div>
+          <button type="submit" disabled={isSubmitting}
+          >
+          {!isSubmitting ? 'Sign in' : 'Signin in...'}
+        </button>
         </form>
         
         

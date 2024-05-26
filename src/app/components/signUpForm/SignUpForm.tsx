@@ -1,6 +1,5 @@
 'use client';
 import Button from "@/components/molecules/button/Button";
-import { signUpFormSchema } from "@/libs/validation/forms/signUpValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -11,8 +10,11 @@ import ComplexityBar from "@/components/molecules/ComplexityBar/ComplexityBar";
 import { passwordStrength } from "check-password-strength";
 import { signUp } from "@/apiHandlers/user/userApiHandler";
 import { toast } from "sonner";
+import { SignUpFormSchemaType } from "@/libs/validation/types";
+import { signUpFormSchema } from "@/libs/validation/userValidations";
+import Link from "next/link";
 
-export type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
+
 
 
 export default function SignUpForm() {
@@ -22,12 +24,12 @@ export default function SignUpForm() {
 
   const [pass, setPass] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<SignUpFormSchema>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<SignUpFormSchemaType>({
     resolver: zodResolver(signUpFormSchema)
   });
 
 
-  const onSubmit: SubmitHandler<SignUpFormSchema> = async (data: SignUpFormSchema) => {
+  const onSubmit: SubmitHandler<SignUpFormSchemaType> = async (data: SignUpFormSchemaType) => {
     if(isValid){
       let result = await signUp(data);
 
@@ -40,7 +42,6 @@ export default function SignUpForm() {
         toast.error("Error while creating your account");
       }
     }
-    toast.error("Your password has to be strong");
   };
 
   return (
@@ -53,11 +54,11 @@ export default function SignUpForm() {
         name="name"
         type="text"
         disabled={isSubmitting} />
-      {errors.name?.message && <span>{errors.email?.message}</span>}
+      {errors.name?.message && <span>{errors.name?.message}</span>}
 
       <input
         {...register('email')}
-        placeholder="email"
+        placeholder="Email"
         name="email"
         id="email"
         disabled={isSubmitting}
@@ -66,7 +67,7 @@ export default function SignUpForm() {
 
       <input
         {...register('password')}
-        placeholder="password"
+        placeholder="Password"
         name="password"
         id="password"
         disabled={isSubmitting}
@@ -81,15 +82,16 @@ export default function SignUpForm() {
 
       <input
         {...register("confirmPassword")}
-        placeholder="confirmPassword"
+        placeholder="Confirm Password"
         name="confirmPassword"
         id="confirmPassword"
         disabled={isSubmitting}
         type="password" />
         {errors.confirmPassword?.message && <span>{errors.confirmPassword.message}</span>}
 
-      <Button variant='outlined' type="submit" disable={isSubmitting}
-        label={!isSubmitting ? 'Sign in' : 'Signin in...'} />
+      <button  type="submit" disabled={isSubmitting}
+        >{!isSubmitting ? 'Sign up' : 'Signin up...'}</button>
+      <p>Already registered?<Link href="/auth/signIn"> Sign in!</Link></p>
     </form>
   );
 

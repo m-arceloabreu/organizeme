@@ -6,9 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-inline-start: 20px;
     justify-content: flex-start;
-    //border-radius: 25px;
 
     .header{
         display: flex;
@@ -22,7 +20,7 @@
             font-size: 26px;
         }
         img{
-            border: 3px solid $secondary-color;
+            border: 3px solid $forth-color;
             border-radius: 10px;
             padding: 3px;
             cursor: pointer;
@@ -31,25 +29,76 @@
         }
     }
 
-    form{
+    .formUpdate{
         display: flex;
         flex-direction: column;
         width: 100%;
-        max-width: 300px;
-        padding: 30px;
+        max-width: 360px;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+
         label{
+            margin-top: 15px;
             font-family: $font-text;
         }
-
-        Button{
-            margin-top: 15px;
-            width: 310px;
+        input {
+            width: 100%;
+            padding: 15px 0px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            background-color: transparent;
+            color: $forth-color;
+            border: 0;
+            border: 1px solid $forth-color;
+        }
+        input:disabled{
+            background-color: rgb(164, 164, 164);
+        }
+        button{
+            margin-top: 10px;
+            width: 100%;
+            padding: 5px 15px;
+            background-color: $secondary-color;
+            border: 0;
+            font-size: 1.4rem;
+            color: $primary-color;
         }
     }
-    Button{
-        width: 310px;
-        margin-bottom: 15px;
+    .changePass{
+        margin-top: 30px;
+        width: 100%;
+        max-width: 360px;
+        padding: 5px 15px;
+        background-color: $secondary-color;
+        border: 0;
+        font-size: 1.4rem;
+        color: $primary-color;
+
     }
+    .deleteAcc{
+        margin-top: 10px;
+        width: 100%;
+        max-width: 360px;
+        padding: 5px 15px;
+        background-color: $alert-color;
+        border: 0;
+        font-size: 1.4rem;
+        color: $forth-color;
+    }
+}
+
+@include mobile {
+    .container {
+        .formUpdate{
+            width: 330px;
+        }
+        .changePass{
+            width: 330px;
+        }
+        .deleteAcc{
+            width: 330px;
+        }
+    }
+    
+
 }

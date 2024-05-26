@@ -1,27 +1,68 @@
-'use client'
+'use client';
 import { SyntheticEvent, useState } from 'react';
 import styles from './profileInformation.module.scss';
-import { ProfileSidebarType } from '../profileSidebar/ProfileSidebar';
 import Image from 'next/image';
 import editProfile from '../../../public/edit-button.png';
 import ModalChangePassword from './ModalChangePassword/ModalChangePassword';
-import Button from '../molecules/button/Button';
 import { User } from 'next-auth';
-
+import { UpdateUserSchemaType } from '@/libs/validation/types';
+import { updateUserSchema } from '@/libs/validation/userValidations';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { deleteUser, updateUser } from '@/apiHandlers/user/userApiHandler';
+import { toast } from 'sonner';
+import Router from 'next/router';
 
 type ProfileInformationProps = {
-  user?: User;
+  user: User;
   token?: string;
 };
 
 export default function ProfileInformation(props: ProfileInformationProps) {
-  const user = props.user;
+  const user = props?.user;
 
   const [disable, setDisable] = useState(true);
   const [modalOpener, setModalOpener] = useState(false);
 
   const handleEdit = (event: SyntheticEvent) => {
     disable === false ? setDisable(true) : setDisable(false);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<UpdateUserSchemaType>({
+    resolver: zodResolver(updateUserSchema),
+  });
+
+  const handleDelete = async () => {
+    if (props.token) {
+      let result = await deleteUser(props.token);
+
+      if (result.status === 200) {
+        toast.success(result.message);
+        Router.push('/');
+      } else {
+        toast.error(result.message);
+      }
+    }
+  };
+
+  const onSubmit: SubmitHandler<UpdateUserSchemaType> = async (
+    data: UpdateUserSchemaType
+  ) => {
+    console.log('cheguei aqui');
+
+    if (props.token) {
+      let result = await updateUser(data, props?.token);
+      if (result.status === 200) {
+        toast.success('User updated');
+      } else {
+        toast.error('Error message');
+      }
+    }
   };
 
   const handlePasswordChange = () => {
@@ -43,40 +84,54 @@ export default function ProfileInformation(props: ProfileInformationProps) {
         <Image src={editProfile} alt="edit Profile" onClick={handleEdit} />
       </div>
 
-      <form>
+      <form className={styles.formUpdate} onSubmit={handleSubmit(onSubmit)}>
         <label>Email</label>
         <input
           disabled={true}
-          className={styles.inputStyle}
+          type='text'
           placeholder={user?.email}
-        ></input>
+        />
         <label>Name</label>
         <input
+          {...register('name')}
           disabled={disable}
-          className={styles.inputStyle}
+          required={false}
+          type='text'
           placeholder={user?.name}
-        ></input>
+        />
+        {errors.name?.message && <span>{errors.name?.message}</span>}
+
         <label>WhatsApp Number</label>
         <input
+          {...register('phoneNumber')}
           disabled={disable}
-          className={styles.inputStyle}
+          required={false}
           type="text"
-          placeholder={'(XX)X XXXX-XXXX'}
-        ></input>
+          placeholder={"Phone Number"}
+        />
+        {errors.phoneNumber?.message && (
+          <span>{errors.phoneNumber?.message}</span>
+        )}
+
         <label>Image</label>
         <input
+          {...register('image')}
+          className={styles.input}
           disabled={disable}
-          className={styles.inputStyle}
+          required={false}
           placeholder="image"
-        ></input>
-        <Button label="Submit Button" variant="outlined" disable={disable} />
+          type='text'
+        />
+        {errors.image?.message && <span>{errors.image?.message}</span>}
+
+        <button type="submit" disabled={disable}>
+          {!isSubmitting ? 'Update user' : 'Updating'}{' '}
+        </button>
       </form>
-      <Button
-        label="Change password"
-        variant="filled"
-        disable={false}
-        cta={handlePasswordChange}
-      />
+
+      <button disabled={false} className={styles.changePass} onClick={handlePasswordChange}>
+        Change password
+      </button>
 
       <ModalChangePassword
         user={props?.user}
@@ -84,7 +139,9 @@ export default function ProfileInformation(props: ProfileInformationProps) {
         modalValue={modalOpener}
         closeModal={handleModalCloser}
       />
-      <Button label="Delete Account" variant="alert" disable={disable} />
+      <button className={styles.deleteAcc} disabled={disable} onClick={handleDelete}>
+        Delete Account
+      </button>
     </div>
   );
 }
